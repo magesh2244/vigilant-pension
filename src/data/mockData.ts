@@ -76,6 +76,23 @@ export interface Complaint {
   adminResponse: string | null;
 }
 
+export interface PensionTransfer {
+  id: string;
+  fromPensionerId: string;
+  fromPensionerName: string;
+  toPensionerId: string;
+  toDependentName: string;
+  relationship: string;
+  transferDate: string;
+  deathDate: string;
+  deathCertificateNumber: string;
+  previousAmount: number;
+  newAmount: number;
+  status: 'pending' | 'approved' | 'completed';
+  verifiedBy: string | null;
+  remarks: string;
+}
+
 // Mock Pensioners
 export const mockPensioners: Pensioner[] = [
   {
@@ -130,6 +147,19 @@ export const mockPensioners: Pensioner[] = [
     lastLifeCertificateDate: '2024-08-20',
     nextLifeCertificateDue: '2024-11-20',
   },
+  {
+    id: '5',
+    aadhaarNumber: '5678-9012-3456',
+    name: 'Col. Arjun Singh',
+    rank: 'Colonel',
+    serviceNumber: 'IC-89012',
+    dateOfBirth: '1959-04-18',
+    dateOfRetirement: '2019-04-30',
+    pensionAmount: 88000,
+    status: 'deceased',
+    lastLifeCertificateDate: '2024-08-01',
+    nextLifeCertificateDue: null,
+  },
 ];
 
 // Mock Dependents
@@ -162,6 +192,16 @@ export const mockDependents: Dependent[] = [
     aadhaarNumber: '1234-5678-9013',
     dateOfBirth: '1963-06-10',
     maritalStatus: 'married',
+    priority: 1,
+  },
+  {
+    id: 'd4',
+    pensionerId: '5',
+    name: 'Mrs. Kavita Arjun Singh',
+    relationship: 'spouse',
+    aadhaarNumber: '5678-9012-3457',
+    dateOfBirth: '1962-07-25',
+    maritalStatus: 'widowed',
     priority: 1,
   },
 ];
@@ -254,6 +294,14 @@ export const mockDeathRecords: DeathRecord[] = [
     certificateNumber: 'DC-2024-09-1234',
     registeredDate: '2024-09-30',
   },
+  {
+    id: 'dr2',
+    aadhaarNumber: '5678-9012-3456',
+    name: 'Col. Arjun Singh',
+    dateOfDeath: '2024-09-15',
+    certificateNumber: 'DC-2024-09-5678',
+    registeredDate: '2024-09-15',
+  },
 ];
 
 // Mock Marriage Records
@@ -289,6 +337,26 @@ export const mockComplaints: Complaint[] = [
     createdDate: '2024-10-23',
     resolvedDate: null,
     adminResponse: 'Your life certificate is under review and will be verified within 48 hours.',
+  },
+];
+
+// Mock Pension Transfers
+export const mockPensionTransfers: PensionTransfer[] = [
+  {
+    id: 'pt1',
+    fromPensionerId: '5',
+    fromPensionerName: 'Col. Arjun Singh',
+    toPensionerId: 'd4',
+    toDependentName: 'Mrs. Kavita Arjun Singh',
+    relationship: 'Wife (Widow)',
+    transferDate: '2024-09-16',
+    deathDate: '2024-09-15',
+    deathCertificateNumber: 'DC-2024-09-5678',
+    previousAmount: 88000,
+    newAmount: 88000,
+    status: 'completed',
+    verifiedBy: 'admin1',
+    remarks: 'Automatic detection from Death Registry. Dependent verified as eligible widow with no remarriage record. Pension transfer completed successfully.',
   },
 ];
 
