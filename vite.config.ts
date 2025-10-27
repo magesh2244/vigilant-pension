@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "https://github.com/magesh2244/vigilant-pension/blob/main/dist/",
+  // base: "https://github.com/magesh2244/vigilant-pension/blob/main/dist/",
   server: {
     host: "::",
     port: 8080,
