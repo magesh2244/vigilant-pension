@@ -3,9 +3,31 @@ import { useNavigate } from "react-router-dom";
 import AdminNav from "@/components/AdminNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { mockPensioners, mockLifeCertificates, mockComplaints, mockPensionTransfers, mockDependents } from "@/data/mockData";
-import { Users, FileCheck, AlertCircle, TrendingUp, CheckCircle2, Clock, XCircle, ArrowRightLeft } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  mockPensioners,
+  mockLifeCertificates,
+  mockComplaints,
+  mockPensionTransfers,
+  mockDependents,
+} from "@/data/mockData";
+import {
+  Users,
+  FileCheck,
+  AlertCircle,
+  TrendingUp,
+  CheckCircle2,
+  Clock,
+  XCircle,
+  ArrowRightLeft,
+} from "lucide-react";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -19,16 +41,22 @@ const AdminDashboard = () => {
 
   const stats = {
     totalPensioners: mockPensioners.length,
-    activePensioners: mockPensioners.filter(p => p.status === 'active').length,
-    deceasedPensioners: mockPensioners.filter(p => p.status === 'deceased').length,
-    pendingCertificates: mockLifeCertificates.filter(c => c.verificationStatus === 'pending').length,
-    openComplaints: mockComplaints.filter(c => c.status === 'open' || c.status === 'in-progress').length,
+    activePensioners: mockPensioners.filter((p) => p.status === "active")
+      .length,
+    deceasedPensioners: mockPensioners.filter((p) => p.status === "deceased")
+      .length,
+    pendingCertificates: mockLifeCertificates.filter(
+      (c) => c.verificationStatus === "pending"
+    ).length,
+    openComplaints: mockComplaints.filter(
+      (c) => c.status === "open" || c.status === "in-progress"
+    ).length,
   };
 
   return (
     <div className="min-h-screen bg-background">
       <AdminNav />
-      
+
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
 
@@ -54,7 +82,9 @@ const AdminDashboard = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-success">{stats.activePensioners}</p>
+              <p className="text-3xl font-bold text-success">
+                {stats.activePensioners}
+              </p>
             </CardContent>
           </Card>
 
@@ -66,7 +96,9 @@ const AdminDashboard = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-destructive">{stats.deceasedPensioners}</p>
+              <p className="text-3xl font-bold text-destructive">
+                {stats.deceasedPensioners}
+              </p>
             </CardContent>
           </Card>
 
@@ -78,7 +110,9 @@ const AdminDashboard = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-warning">{stats.pendingCertificates}</p>
+              <p className="text-3xl font-bold text-warning">
+                {stats.pendingCertificates}
+              </p>
             </CardContent>
           </Card>
 
@@ -90,7 +124,9 @@ const AdminDashboard = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-secondary">{stats.openComplaints}</p>
+              <p className="text-3xl font-bold text-secondary">
+                {stats.openComplaints}
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -119,18 +155,30 @@ const AdminDashboard = () => {
               <TableBody>
                 {mockPensioners.map((pensioner) => (
                   <TableRow key={pensioner.id}>
-                    <TableCell className="font-medium">{pensioner.name}</TableCell>
+                    <TableCell className="font-medium">
+                      {pensioner.name}
+                    </TableCell>
                     <TableCell>{pensioner.rank}</TableCell>
-                    <TableCell className="font-mono text-xs">{pensioner.serviceNumber}</TableCell>
-                    <TableCell>₹{pensioner.pensionAmount.toLocaleString('en-IN')}</TableCell>
-                    <TableCell className="text-sm">{pensioner.lastLifeCertificateDate || 'N/A'}</TableCell>
-                    <TableCell className="text-sm">{pensioner.nextLifeCertificateDue || 'N/A'}</TableCell>
+                    <TableCell className="font-mono text-xs">
+                      {pensioner.serviceNumber}
+                    </TableCell>
                     <TableCell>
-                      <Badge 
+                      ₹{pensioner.pensionAmount.toLocaleString("en-IN")}
+                    </TableCell>
+                    <TableCell className="text-sm">
+                      {pensioner.lastLifeCertificateDate || "N/A"}
+                    </TableCell>
+                    <TableCell className="text-sm">
+                      {pensioner.nextLifeCertificateDue || "N/A"}
+                    </TableCell>
+                    <TableCell>
+                      <Badge
                         variant={
-                          pensioner.status === 'active' ? 'default' :
-                          pensioner.status === 'deceased' ? 'destructive' :
-                          'secondary'
+                          pensioner.status === "active"
+                            ? "default"
+                            : pensioner.status === "deceased"
+                            ? "destructive"
+                            : "secondary"
                         }
                       >
                         {pensioner.status}
@@ -154,29 +202,55 @@ const AdminDashboard = () => {
             </CardHeader>
             <CardContent>
               {mockPensionTransfers.map((transfer) => {
-                const dependent = mockDependents.find(d => d.id === transfer.toPensionerId);
+                const dependent = mockDependents.find(
+                  (d) => d.id === transfer.toPensionerId
+                );
                 return (
                   <div key={transfer.id} className="space-y-4">
                     <div className="bg-muted/50 p-4 rounded-lg">
                       <div className="flex items-start justify-between mb-4">
                         <div>
-                          <h3 className="font-semibold text-lg">{transfer.fromPensionerName}</h3>
-                          <Badge variant="destructive" className="mt-1">Deceased</Badge>
+                          <h3 className="font-semibold text-lg">
+                            {transfer.fromPensionerName}
+                          </h3>
+                          <Badge variant="destructive" className="mt-1">
+                            Deceased
+                          </Badge>
                         </div>
-                        <Badge variant="default" className="bg-success">{transfer.status}</Badge>
+                        <Badge variant="default" className="bg-success">
+                          {transfer.status}
+                        </Badge>
                       </div>
-                      
+
                       <div className="grid md:grid-cols-2 gap-4 mb-4">
                         <div>
-                          <p className="text-sm text-muted-foreground">Death Confirmation</p>
-                          <p className="font-medium">Matched with Official Death Registry</p>
-                          <p className="text-sm">Date: {new Date(transfer.deathDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                          <p className="text-xs text-muted-foreground">Certificate: {transfer.deathCertificateNumber}</p>
+                          <p className="text-sm text-muted-foreground">
+                            Death Confirmation
+                          </p>
+                          <p className="font-medium">
+                            Matched with Official Death Registry
+                          </p>
+                          <p className="text-sm">
+                            Date:{" "}
+                            {new Date(transfer.deathDate).toLocaleDateString(
+                              "en-IN",
+                              { day: "numeric", month: "long", year: "numeric" }
+                            )}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            Certificate: {transfer.deathCertificateNumber}
+                          </p>
                         </div>
                         <div>
-                          <p className="text-sm text-muted-foreground">Pension Amount</p>
-                          <p className="text-2xl font-bold">₹{transfer.newAmount.toLocaleString('en-IN')}</p>
-                          <p className="text-xs text-muted-foreground">Monthly</p>
+                          <p className="text-sm text-muted-foreground">
+                            Pension Amount
+                          </p>
+                          <p className="text-2xl font-bold">
+                            ₹{transfer.newAmount.toLocaleString("en-IN")}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            Monthly
+                          </p>
                         </div>
                       </div>
 
@@ -184,34 +258,52 @@ const AdminDashboard = () => {
                         <div className="flex items-start gap-3 mb-3">
                           <CheckCircle2 className="h-5 w-5 text-success mt-0.5" />
                           <div>
-                            <p className="font-medium">Dependent Verified & Pension Transferred</p>
-                            <p className="text-sm text-muted-foreground mt-1">{transfer.toDependentName}</p>
+                            <p className="font-medium">
+                              Dependent Verified & Pension Transferred
+                            </p>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              {transfer.toDependentName}
+                            </p>
                           </div>
                         </div>
                         <div className="bg-background p-3 rounded border">
                           <div className="grid grid-cols-2 gap-4 text-sm">
                             <div>
-                              <p className="text-muted-foreground">Relationship</p>
-                              <p className="font-medium">{transfer.relationship}</p>
+                              <p className="text-muted-foreground">
+                                Relationship
+                              </p>
+                              <p className="font-medium">
+                                {transfer.relationship}
+                              </p>
                             </div>
                             <div>
-                              <p className="text-muted-foreground">Marital Status</p>
-                              <p className="font-medium">{dependent?.maritalStatus}</p>
+                              <p className="text-muted-foreground">
+                                Marital Status
+                              </p>
+                              <p className="font-medium">
+                                {dependent?.maritalStatus}
+                              </p>
                             </div>
                             <div>
                               <p className="text-muted-foreground">Aadhaar</p>
-                              <p className="font-mono text-xs">{dependent?.aadhaarNumber}</p>
+                              <p className="font-mono text-xs">
+                                {dependent?.aadhaarNumber}
+                              </p>
                             </div>
                             <div>
-                              <p className="text-muted-foreground">Eligibility</p>
-                              <Badge variant="default" className="bg-success">✓ Approved</Badge>
+                              <p className="text-muted-foreground">
+                                Eligibility
+                              </p>
+                              <Badge variant="default" className="bg-success">
+                                ✓ Approved
+                              </Badge>
                             </div>
                           </div>
                         </div>
                       </div>
 
                       <div className="mt-4 pt-4 border-t">
-                        <p className="text-sm font-medium mb-2">⚙ System Workflow Summary:</p>
+                        {/* <p className="text-sm font-medium mb-2">⚙ System Workflow Summary:</p>
                         <ul className="text-sm space-y-1 text-muted-foreground">
                           <li>✓ Automatic detection from Death Registry</li>
                           <li>✓ Immediate suspension of pension disbursements</li>
@@ -219,10 +311,12 @@ const AdminDashboard = () => {
                           <li>✓ Eligibility confirmed (No remarriage recorded)</li>
                           <li>✓ Pension benefits securely re-routed to verified dependent</li>
                           <li>✓ Admin notification and audit log generated</li>
-                        </ul>
+                        </ul> */}
                         <div className="mt-3 p-2 bg-primary/10 rounded text-sm">
                           <p className="font-medium">Admin Remarks:</p>
-                          <p className="text-muted-foreground">{transfer.remarks}</p>
+                          <p className="text-muted-foreground">
+                            {transfer.remarks}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -235,7 +329,10 @@ const AdminDashboard = () => {
 
         {/* Quick Actions */}
         <div className="grid md:grid-cols-2 gap-6">
-          <Card className="shadow-card cursor-pointer hover:shadow-elevated transition-shadow" onClick={() => navigate('/admin-certificates')}>
+          <Card
+            className="shadow-card cursor-pointer hover:shadow-elevated transition-shadow"
+            onClick={() => navigate("/admin-certificates")}
+          >
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <FileCheck className="h-5 w-5 text-warning" />
@@ -249,7 +346,10 @@ const AdminDashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className="shadow-card cursor-pointer hover:shadow-elevated transition-shadow" onClick={() => navigate('/admin-complaints')}>
+          <Card
+            className="shadow-card cursor-pointer hover:shadow-elevated transition-shadow"
+            onClick={() => navigate("/admin-complaints")}
+          >
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <AlertCircle className="h-5 w-5 text-secondary" />

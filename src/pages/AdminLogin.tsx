@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shield, ArrowLeft } from "lucide-react";
@@ -26,11 +32,7 @@ const AdminLogin = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Button
-          variant="ghost"
-          className="mb-4"
-          onClick={() => navigate("/")}
-        >
+        <Button variant="ghost" className="mb-4" onClick={() => navigate("/")}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Home
         </Button>
@@ -74,11 +76,11 @@ const AdminLogin = () => {
               Login
             </Button>
 
-            <div className="pt-4 border-t text-center text-sm text-muted-foreground">
+            {/* <div className="pt-4 border-t text-center text-sm text-muted-foreground">
               <p>Demo Credentials:</p>
               <p className="font-mono text-xs">Username: admin</p>
               <p className="font-mono text-xs">Password: admin123</p>
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </div>

@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shield, ArrowLeft } from "lucide-react";
@@ -23,14 +29,14 @@ const PensionerLogin = () => {
     }
 
     // Check if Aadhaar exists in mock data
-    const pensioner = mockPensioners.find(p => p.aadhaarNumber === aadhaar);
+    const pensioner = mockPensioners.find((p) => p.aadhaarNumber === aadhaar);
     if (!pensioner) {
       toast.error("Aadhaar number not found in our records");
       return;
     }
 
     setOtpSent(true);
-    toast.success("OTP sent to your registered mobile number (Use: 123456)");
+    toast.success("OTP sent to your registered mobile number");
   };
 
   const handleLogin = () => {
@@ -39,7 +45,7 @@ const PensionerLogin = () => {
       return;
     }
 
-    const pensioner = mockPensioners.find(p => p.aadhaarNumber === aadhaar);
+    const pensioner = mockPensioners.find((p) => p.aadhaarNumber === aadhaar);
     if (pensioner) {
       localStorage.setItem("pensionerAuth", JSON.stringify(pensioner));
       toast.success(`Welcome ${pensioner.name}!`);
@@ -59,11 +65,7 @@ const PensionerLogin = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Button
-          variant="ghost"
-          className="mb-4"
-          onClick={() => navigate("/")}
-        >
+        <Button variant="ghost" className="mb-4" onClick={() => navigate("/")}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Home
         </Button>
@@ -108,9 +110,9 @@ const PensionerLogin = () => {
                     onChange={(e) => setOtp(e.target.value)}
                     maxLength={6}
                   />
-                  <p className="text-xs text-muted-foreground">
+                  {/* <p className="text-xs text-muted-foreground">
                     Demo OTP: 123456
-                  </p>
+                  </p> */}
                 </div>
 
                 <Button className="w-full" onClick={handleLogin}>
@@ -130,10 +132,10 @@ const PensionerLogin = () => {
               </>
             )}
 
-            <div className="pt-4 border-t text-center text-sm text-muted-foreground">
-              <p>Test Aadhaar Numbers:</p>
+            {/* <div className="pt-4 border-t text-center text-sm text-muted-foreground">
+              <p>Numbers:</p>
               <p className="font-mono text-xs">1234-5678-9012, 3456-7890-1234</p>
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </div>
